@@ -1,2 +1,146 @@
-# ColorSorting_RobotArm
-Color Sorting Robotic Arm 🤖🎨 An ESP8266-powered 5-DOF robotic arm that automatically sorts objects by color using a TCS3200 sensor. Control everything through a clean, black-and-white web interface from any device!  ✨ Features Autonomous Sorting: Detects Red, Green, and Blue objects and places them in designated bins  Web Dashboard: Real-time monitoring with counters and conveyor status  Manual Control: Individual servo control with smooth motion algorithm  Configurable Grab Points: Save/load custom pickup positions to EEPROM  WiFi Access Point: Direct connection - no router needed (SSID: ColorSort-RobotArm)  Persistent Storage: All settings survive power cycles  IR Object Detection: Triggers sorting sequence automatically  🛠️ Hardware Components ESP8266 (NodeMCU or similar) - Main controller  PCA9685 16-channel PWM driver - Servo control  5x Servo Motors - 5-DOF robotic arm  TCS3200 Color Sensor - Object color detection  IR Sensor - Object presence detection  Relay Module - Conveyor belt control  🔌 Pin Connections text ESP8266 Pin Connections:  I2C (PCA9685): SDA=D2, SCL=D1 Relay: D6 (GPIO12) - Active LOW IR Sensor: D5 (GPIO14) - Active LOW detection TCS3200 OUT: D7 (GPIO13) TCS3200 S0: D3 (GPIO0) TCS3200 S1: D4 (GPIO2) TCS3200 S2: D8 (GPIO15) TCS3200 S3: D0 (GPIO16) 📱 Web Interface Dashboard (192.168.4.1) Start/Pause auto-sorting Real-time color counters (Red/Green/Blue/Total)  Conveyor status indicator  Last detected color display  Auto-refreshing stats (every 500ms)  Servo Control (192.168.4.1/control) Individual servo sliders (0-180°)  Grab point configuration editor  Relay off-delay adjustment (0-2000ms)  Color sensor test button  IR sensor status display  EEPROM save/load functionality  🔄 State Machine The system uses a 5-state architecture:  RUNNING: Conveyor on, waiting for object  SORTING_RED/GREEN/BLUE: Executing bin sequences  WAIT_CLEAR: Holding until object removed  💾 EEPROM Configuration Stores persistently:  Grab point angles (6 positions)  Relay off-delay timing  Validated with magic number 0xA55A12EF  🚀 Getting Started Flash the code to your ESP8266 using Arduino IDE  Power up the system via USB  Connect to WiFi "ColorSort-RobotArm" (password: 12345678)  Open browser to 192.168.4.1  Configure grab points in /control page  Press Start and watch it sort!  📦 Dependencies ESP8266WiFi library  ESP8266WebServer  Adafruit_PWMServoDriver  Wire (I2C)  EEPROM  🔧 Calibration Tips Servo pulse range: 150-600 ticks (default)  Gripper servo (channel 4): 150-630 ticks  TCS3200 set to 20% frequency scaling  Relay off-delay prevents mechanical chatter  ⚡ Future Improvements Add more color bins (Yellow, Black, White)  Implement machine learning for color recognition  Add limit switches for homing  Mobile app integration  Multiple sorting patterns  📝 License MIT License - feel free to use, modify, and distribute!  🙏 Acknowledgments Adafruit for PCA9685 library  ESP8266 community for excellent documentation  Open-source contributors
+🤖 Color Sorting Robotic Arm
+
+Autonomous ESP8266-powered 5-DOF robotic arm that detects and sorts objects by color using a TCS3200 sensor, featuring a real-time web dashboard and persistent configuration storage.
+
+📌 Overview
+
+This project implements a WiFi-enabled autonomous color sorting system using an ESP8266 microcontroller. The robotic arm detects object color (Red, Green, Blue) and places them into designated bins using a structured Finite State Machine (FSM) architecture.
+
+The system is fully controllable through a built-in web interface hosted directly on the ESP8266 (Access Point mode — no router required).
+
+🔹 Core Components
+
+ESP8266 (NodeMCU) – Main controller
+
+PCA9685 (I2C PWM Driver) – 16-channel servo control
+
+5x Servo Motors – 5-DOF robotic arm
+
+TCS3200 Color Sensor – RGB color detection
+
+IR Sensor – Object presence detection
+
+Relay Module – Conveyor belt control
+
+✨ Key Features
+🎯 Autonomous Sorting
+
+Detects Red, Green, Blue
+
+Automatically executes bin placement sequence
+
+🌐 Web Dashboard (192.168.4.1)
+
+Start / Pause sorting
+
+Real-time counters (R/G/B/Total)
+
+Conveyor status indicator
+
+Last detected color
+
+Auto-refresh (500ms)
+
+🎛 Manual Control Page (/control)
+
+Individual servo angle sliders (0–180°)
+
+Smooth motion algorithm
+
+Grab-point configuration
+
+Relay off-delay adjustment
+
+EEPROM Save/Load
+
+💾 Persistent Storage
+
+Stores 6 grab positions
+
+Stores relay timing
+
+EEPROM validation using magic number 0xA55A12EF
+
+Survives power cycles
+
+🚀 Getting Started
+1️⃣ Flash Firmware
+
+Upload using Arduino IDE.
+
+Required Libraries:
+
+ESP8266WiFi
+
+ESP8266WebServer
+
+Adafruit_PWMServoDriver
+
+Wire
+
+EEPROM
+
+2️⃣ Power On
+
+Connect via USB or external supply.
+
+3️⃣ Connect to WiFi
+
+SSID: ColorSort-RobotArm
+Password: 12345678
+
+4️⃣ Open Web Interface
+http://192.168.4.1
+
+5️⃣ Configure Grab Points
+
+Navigate to /control and adjust pickup positions.
+
+Press Start to begin sorting.
+
+⚙ Calibration Notes
+
+Servo pulse range: 150–600 ticks
+
+Gripper servo: 150–630 ticks
+
+TCS3200 scaling: 20% frequency
+
+Relay off-delay prevents mechanical chatter
+
+🧠 Engineering Highlights
+
+Modular FSM-based architecture
+
+Smooth servo interpolation algorithm
+
+I2C-based multi-servo control
+
+Embedded web server (no external backend)
+
+EEPROM-based configuration persistence
+
+Access Point networking mode
+
+🔮 Future Improvements
+
+Additional color bins (Yellow, Black, White)
+
+Machine learning-based color recognition
+
+Limit switches for homing
+
+Mobile application control
+
+OTA firmware updates
+
+Cloud-based data logging
+
+📜 License
+
+MIT License — Free to use, modify, and distribute.
+
+👨‍💻 Author
+
+Achira Pamuditha and thineth nirmal
+Software Engineering Student | Embedded Systems Enthusiast
